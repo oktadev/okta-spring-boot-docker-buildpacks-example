@@ -6,7 +6,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
 import java.security.Principal
 
@@ -20,15 +19,12 @@ fun main(args: Array<String>) {
 @Configuration
 class OktaOAuth2WebSecurityConfigurerAdapter: WebSecurityConfigurerAdapter() {
 	override fun configure(http: HttpSecurity) {
-	    http.authorizeRequests().anyRequest().authenticated();
-
+		http.authorizeRequests().anyRequest().authenticated();
 	}
 }
 
 @RestController
 class WebController {
-    @RequestMapping("/")
-    fun home(user: Principal?) = "Welcome, ${user?.name ?: "guest"}!"
+	@RequestMapping("/")
+	fun home(user: Principal?) = "Welcome, ${user?.name ?: "guest"}!"
 }
-
-
