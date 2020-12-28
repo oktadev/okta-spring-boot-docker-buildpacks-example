@@ -4,14 +4,16 @@ This example shows how to create a Spring Boot application, secure it, and build
 
 > [Okta](https://developer.okta.com/) has Authentication and User Management APIs that reduce development time with instant-on, scalable user infrastructure. Okta's intuitive API and expert support make it easy for developers to authenticate, manage and secure users and roles in any application.
 
-For further details, please read the [tutorial published on the Okta developer blog][article].
+For further details, please read [How to Docker in Spring Boot][article].
 
-**Prerequisites**:
+**Prerequisites:**
 
 * [Java 11+][java11]
 * Unix-like shell
 * [Docker][install-docker] installed
 * [Okta CLI][okta-cli] installed
+
+> [Okta](https://developer.okta.com/) has Authentication and User Management APIs that reduce development time with instant-on, scalable user infrastructure. Okta's intuitive API and expert support make it easy for developers to authenticate, manage and secure users and roles in any application.
 
 * [Getting Started](#getting-started)
 * [Links](#links)
