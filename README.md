@@ -85,6 +85,13 @@ heroku container:release web
 heroku logs --tail
 ```
 
+You'll need to update your Okta OIDC app to have your Heroku app's redirect URIs as well.
+
+- Login redirect URI: `https://<your-app-name>.herokuapp.com/login/oauth2/code/okta`
+- Logout redirect URI: `https://<your-app-name>.herokuapp.com`
+
+Then, run `heroku open` to open your app and sign in.
+
 ## Links
 
 This example uses the following open source libraries from Okta:
