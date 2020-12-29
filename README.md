@@ -12,6 +12,7 @@ This example shows how to create a Spring Boot application, secure it, and build
 > [Okta](https://developer.okta.com/) has Authentication and User Management APIs that reduce development time with instant-on, scalable user infrastructure. Okta's intuitive API and expert support make it easy for developers to authenticate, manage and secure users and roles in any application.
 
 * [Getting Started](#getting-started)
+* [Deploy to Heroku](#deploy-to-heroku)
 * [Links](#links)
 * [Help](#help)
 * [License](#license)
@@ -51,6 +52,39 @@ Run your bootiful application!
 ```sh
 docker run -it -p8080:8080 --env-file .env springbootdemo 
 ```
+
+## Deploy to Heroku
+
+If you'd like to deploy your dockerized Spring Boot app to Heroku, you'll need to use [Heroku Buildpacks](https://jkutner.github.io/2020/05/19/spring-boot-buildpacks.html). This is because the Paketo buildpacks refuse to allocate heap on containers smaller than 1GB of RAM. A free Heroku dyno has 512MB.
+
+First, you'll need to add the following to `src/main/resources/application.properties` so Spring Boot uses Heroku's `PORT` environment variable.
+
+```properties
+server.port=${PORT:8080}
+```
+
+Build your image with `--builder heroku/spring-boot-buildpacks`:
+
+```sh
+./gradlew bootBuildImage --imageName=springbootdemo --builder heroku/spring-boot-buildpacks
+```
+
+Create an app on Heroku:
+
+```shell
+heroku create
+```
+
+Then, log in to Heroku's container registry and deploy your app:
+
+```sh
+heroku container:login
+docker tag springbootdemo registry.heroku.com/<your-app-name>/web
+docker push registry.heroku.com/<your-app-name>/web
+heroku container:release web
+heroku logs --tail
+```
+
 ## Links
 
 This example uses the following open source libraries from Okta:
