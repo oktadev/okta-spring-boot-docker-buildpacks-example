@@ -33,7 +33,7 @@ okta register
 okta apps create
 ```
 
-Select **Web** > **Other**. This will create an `.okta.env` file in your project's root directory. Source it and run it to confirm you can log in to Okta.
+Select **Web** > **Other**. Use `http://localhost:8080/login/oauth2/code/okta` as the Redirect URI. This will create an `.okta.env` file in your project's root directory. Source it and run it to confirm you can log in to Okta.
 
 ```bash
 source .okta.env
@@ -84,14 +84,12 @@ Create an app on Heroku:
 heroku create
 ```
 
-Then, log in to Heroku's container registry and deploy your app:
+Then, log in to Heroku's container registry and push your app:
 
 ```bash
 heroku container:login
 docker tag springbootdemo registry.heroku.com/<your-app-name>/web
 docker push registry.heroku.com/<your-app-name>/web
-heroku container:release web
-heroku logs --tail
 ```
 
 Set your Okta app settings as environment variables:
@@ -100,7 +98,14 @@ Set your Okta app settings as environment variables:
 heroku config:set \
   OKTA_OAUTH2_ISSUER="https://{yourOktaDomain}/oauth2/default" \
   OKTA_OAUTH2_CLIENT_ID="{clientId}" \
-  OKTA_OAUTH2_CLIENT_SECRET="${clientSecret}"
+  OKTA_OAUTH2_CLIENT_SECRET="{clientSecret}"
+```
+
+Next, release your container and tail the logs.
+
+```bash
+heroku container:release web
+heroku logs --tail
 ```
 
 You'll need to update your Okta OIDC app to have your Heroku app's redirect URIs as well.
