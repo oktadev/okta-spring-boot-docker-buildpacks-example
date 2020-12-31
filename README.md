@@ -72,7 +72,7 @@ First, you'll need to add the following to `src/main/resources/application.prope
 server.port=${PORT:8080}
 ```
 
-Build your image with `--builder heroku/spring-boot-buildpacks`:
+Then, build your image with `--builder heroku/spring-boot-buildpacks`:
 
 ```bash
 ./gradlew bootBuildImage --imageName=springbootdemo --builder heroku/spring-boot-buildpacks
@@ -113,7 +113,7 @@ You'll need to update your Okta OIDC app to have your Heroku app's redirect URIs
 - Login redirect URI: `https://<your-app-name>.herokuapp.com/login/oauth2/code/okta`
 - Logout redirect URI: `https://<your-app-name>.herokuapp.com`
 
-Then, run `heroku open` to open your app and sign in.
+Run `heroku open` to open your app and sign in.
 
 ## Links
 
