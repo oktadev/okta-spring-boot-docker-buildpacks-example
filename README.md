@@ -33,23 +33,32 @@ okta register
 okta apps create
 ```
 
+Select **Web** > **Other**. This will create an `.okta.env` file in your project's root directory. Source it and run it to confirm you can log in to Okta.
+
+```bash
+source .okta.env
+./gradlew bootRun
+```
+
+Open your browser to `http://localhost:8080` and sign in.
+
 Build an application image into local Docker:
 
-```sh
+```bash
 ./gradlew bootBuildImage --imageName=springbootdemo
 ```
 
 Create an `.env` file in the project root and copy your Okta application settings from the `.okta.env` file:
 
-```sh
-OKTA_OAUTH2_ISSUER=https://dev-xxxxxx.okta.com/oauth2/default
-OKTA_OAUTH2_CLIENT_SECRET=viVC58i6MzQHzAz9BeXjzhWpSz8qbg6U5B4RXnre
-OKTA_OAUTH2_CLIENT_ID=zoa1bzlj7DWmzSI8o5d6
+```bash
+OKTA_OAUTH2_ISSUER=https://dev-ZZZ.okta.com/oauth2/default
+OKTA_OAUTH2_CLIENT_SECRET=XXX
+OKTA_OAUTH2_CLIENT_ID=YYY
 ```
 
 Run your bootiful application!
 
-```sh
+```bash
 docker run -it -p8080:8080 --env-file .env springbootdemo 
 ```
 
@@ -65,24 +74,33 @@ server.port=${PORT:8080}
 
 Build your image with `--builder heroku/spring-boot-buildpacks`:
 
-```sh
+```bash
 ./gradlew bootBuildImage --imageName=springbootdemo --builder heroku/spring-boot-buildpacks
 ```
 
 Create an app on Heroku:
 
-```shell
+```bash
 heroku create
 ```
 
 Then, log in to Heroku's container registry and deploy your app:
 
-```sh
+```bash
 heroku container:login
 docker tag springbootdemo registry.heroku.com/<your-app-name>/web
 docker push registry.heroku.com/<your-app-name>/web
 heroku container:release web
 heroku logs --tail
+```
+
+Set your Okta app settings as environment variables:
+
+```bash
+heroku config:set \
+  OKTA_OAUTH2_ISSUER="https://{yourOktaDomain}/oauth2/default" \
+  OKTA_OAUTH2_CLIENT_ID="{clientId}" \
+  OKTA_OAUTH2_CLIENT_SECRET="${clientSecret}"
 ```
 
 You'll need to update your Okta OIDC app to have your Heroku app's redirect URIs as well.
