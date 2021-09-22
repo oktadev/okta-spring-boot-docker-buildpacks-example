@@ -82,7 +82,7 @@ class WebController {
 ./gradlew bootBuildImage --imageName=springbootdemo
 ----
 +
-NOTE: The `--imageName` parameter allows specifying an image name. Without it, the name would be something like `demospringboot:0.0.1-SNAPSHOT`.
+NOTE: The `--imageName` parameter allows you to specify an image name. Without it, the name would be something like `demospringboot:0.0.1-SNAPSHOT`.
 
 . Start your containerized web application with Docker:
 +
@@ -98,7 +98,7 @@ docker run -it -p8080:8080 springbootdemo
 User management is never an easy task and, most certainly, is not the main objective of your application. Okta is an identity provider that helps you to take care of routine work such as:
 
 - Implementing OAuth 2.0
-- Adding Social Login
+- Adding social login
 - Implementing SSO (Single Sign-On)
 
 Okta is developer-friendly, and it has excellent integration with different frameworks, including Spring Boot.
@@ -149,7 +149,7 @@ docker run -it -p8080:8080 \
   springbootdemo
 ----
 +
-The argument `-e` allows to set an environment variable for the application running _inside_ your container and `-p` maps container's ports to `localhost` ports.
+The argument `-e` allows you to set an environment variable for the application running _inside_ your container and `-p` maps the container's ports to `localhost` ports.
 
 . Navigate to `http://localhost:8080` in your browser and log in using your Okta credentials.
 
@@ -162,7 +162,7 @@ fun home(@AuthenticationPrincipal user: OidcUser?) = "Welcome, ${user?.fullName 
 
 == Use a dotenv File for Environment Variables
 
-Using environment variables in the command-line works, but it's not very convenient and can leave unwanted traces of the secrets in your terminal history. Docker supports dotenv file format, which makes it easier to set multiple environment parameters.
+Using environment variables in the command line works, but it's not very convenient and can leave unwanted traces of the secrets in your terminal history. Docker supports the dotenv file format, which makes it easier to set multiple environment parameters.
 
 . Create a `.env` file in the root of the project and set your environment variables:
 +
@@ -237,7 +237,7 @@ heroku logs --tail
 
 . Run `heroku open` to open your app and sign in. Witness a 400 error for an invalid redirect URI.
 
-. Update your Okta OIDC app to have your Heroku app's redirect URIs:
+. Update your Okta OIDC app to use your Heroku app's redirect URIs:
 
 - Login redirect URI: `https://<your-app-name>.herokuapp.com/login/oauth2/code/okta`
 - Logout redirect URI: `https://<your-app-name>.herokuapp.com`
